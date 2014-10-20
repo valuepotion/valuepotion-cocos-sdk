@@ -10,8 +10,14 @@ Valuepotion Cocos2d-x SDK에 포함된 `ValuePotionManager.h` 파일과 `ValuePo
 
 ### 3. 안드로이드 프로젝트 설정
 1. `proj.android` 프로젝트를 이클립스에서 연 후, `Classes/ValuePotion/android` 디렉토리에 있는 `valuepotion.jar`, `valuepotioncocos.jar` 파일을 `libs` 디렉토리 밑으로 이동시킵니다.
-2. Google Play Services 프로젝트에 대한 dependency를 추가합니다. 자세한 내용은 [이 문서](https://developer.android.com/google/play-services/setup.html)를 참조하십시오.
-3. Android Support Library 프로젝트에 대한 dependency를 추가합니다. 자세한 내용은 [이 문서](http://developer.android.com/tools/support-library/setup.html)를 참조하십시오.
+2. `proj.android > jni > Android.mk` 파일을 연 후, 아래와 같이 `ValuePotionManager.cpp`, `ValuePotionJni.cpp` 파일을 추가합니다.
+```
+LOCAL_SRC_FILES := hellocpp/main.cpp \
+                   ../../Classes/ValuePotion/android/ValuePotionManager.cpp \
+                   ../../Classes/ValuePotion/android/ValuePotionJni.cpp
+```
+3. Google Play Services 프로젝트에 대한 dependency를 추가합니다. 자세한 내용은 [이 문서](https://developer.android.com/google/play-services/setup.html)를 참조하십시오.
+4. Android Support Library 프로젝트에 대한 dependency를 추가합니다. 자세한 내용은 [이 문서](http://developer.android.com/tools/support-library/setup.html)를 참조하십시오.
 
 ### 4. iOS 프로젝트 설정
 1. `proj.ios` 프로젝트를 Xcode에서 연 후, Build Settings 탭에서 Other Linker Flags 항목에 `-ObjC` 플래그를 추가합니다.
