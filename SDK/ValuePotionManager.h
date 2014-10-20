@@ -25,9 +25,9 @@ class ValuePotionManagerDelegate {
 public:
     virtual ~ValuePotionManagerDelegate() {}
     virtual void didCacheInterstitial(const char *placement) {}
-    virtual void didFailToCacheInterstitial(const char *placement, const char *error) {}
+    virtual void didFailToCacheInterstitial(const char *placement, const char *errorMessage) {}
     virtual void willOpenInterstitial(const char *placement) {}
-    virtual void didFailToOpenInterstitial(const char *placement, const char *error) {}
+    virtual void didFailToOpenInterstitial(const char *placement, const char *errorMessage) {}
     virtual void didCloseInterstitial(const char *placement) {}
     virtual void didRequestOpenURL(const char *placement, const char *URL) {}
     virtual void didRequestPurchase(const char *placement, const char *name, const char *productId, int quantity, const char *campaignId, const char *contentId) {}
