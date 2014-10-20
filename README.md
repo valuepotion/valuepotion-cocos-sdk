@@ -227,7 +227,7 @@ ValuePotionManager::setUserAccountType("guest");
 [이 문서](https://github.com/valuepotion/valuepotion-android-sdk/blob/master/README.KO.md#push-notification-%EC%97%B0%EB%8F%99)를 참조하십시오.
 
 ### 2. iOS 프로젝트 연동
-[이 문서](https://github.com/valuepotion/valuepotion-ios-sdk/blob/master/README.KO.md#push-notification-%EC%97%B0%EB%8F%99)를 참조하십시오.
+[이 문서](https://github.com/valuepotion/valuepotion-ios-sdk/blob/master/README.KO.md#push-notification-%EC%97%B0%EB%8F%99)를 참조하십시오. 단, `AppDelegate` 클래스가 아닌 `AppController` 클래스에 적용해야 합니다.
 
 
 ## 고급: 델리게이트 메소드
@@ -252,7 +252,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 }
 ```
 
-### 1. Interstitial 노출 이벤트
+### 1. Interstitial 노출 관련
 #### willOpenInterstitial
 `ValuePotionManager::openInterstitial()` 메소드 호출 후, 인터스티셜 광고가 성공적으로 화면에 노출되는 시점에  호출됩니다.
 
@@ -286,7 +286,7 @@ void AppDelegate::didCloseInterstitial(const char *placement)
 }
 ```
 
-### 2. Interstitial 캐싱 이벤트
+### 2. Interstitial 캐싱 관련
 #### didChacheInterstitial
 `ValuePotionManger::cacheInterstitial()` 메소드 호출 후, 성공적으로 광고가 캐싱 되었을 때 호출됩니다.
 
@@ -308,7 +308,7 @@ void AppDelegate::didFailToCacheInterstitial(const char *placement, const char *
 }
 ```
 
-### 3. Interstitial 액션 이벤트
+### 3. Interstitial 액션 관련
 #### didRequestOpenURL
 인터스티셜 광고 노출 상태에서 사용자가 외부 링크를 클릭하는 경우 발생합니다.
 
