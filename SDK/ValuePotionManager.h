@@ -13,7 +13,7 @@
 #include <vector>
 
 static const char *SDK_TYPE = "Cocos";
-static const char *SDK_VERSION = "1.0.0";
+static const char *SDK_VERSION = "1.0.1";
 
 struct Reward
 {
