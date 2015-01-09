@@ -1,28 +1,28 @@
-# Valuepotion Cocos2d-x SDK 통합 가이드
+# Valuepotion SDK for Cocos2d-x - Getting Started
 
-## 기본 설정
+## Before You Begin
 
-### 1. 앱 정보 등록
-먼저 [밸류포션](https://valuepotion.com) 웹사이트에 방문하여 SDK를 적용할 앱의 정보를 등록합니다. 앱 정보 등록을 완료하면 Client ID 와 Secret Key 가 발급됩니다.
+### 1. Register Your App
+Visit [Valuepotion](https://valuepotion.com) website and register the information of your app. After that, you will be given a **Client ID** and a **Secret Key**.
 
-### 2. Cocos2d-x 프로젝트에 SDK 임포트
-Valuepotion Cocos2d-x SDK에 포함된 `ValuePotionManager.h` 파일과 `ValuePotion` 디렉토리를 Cocos2d-x 프로젝트의 `Classes` 디렉토리에 복사하여 넣으십시오.
+### 2. Import the SDK into your Cocos2d-x project
+In Valuepotion Cocos2d-x SDK, there're `ValuePotionManager.h` file and `ValuePotion` folder. Copy them into `Classes` folder of your Cocox2d-x project.
 
-### 3. 안드로이드 프로젝트 설정
-1. `proj.android` 프로젝트를 이클립스에서 연 후, `Classes/ValuePotion/android` 디렉토리에 있는 `valuepotion.jar`, `valuepotioncocos.jar` 파일을 `libs` 디렉토리 밑으로 이동시킵니다.
-2. `proj.android > jni > Android.mk` 파일을 연 후, 아래와 같이 `ValuePotionManager.cpp`, `ValuePotionJni.cpp` 파일을 추가합니다.
+### 3. Setup Android Project
+1. Open `proj.android` project in Eclipse and move `valuepotion.jar` and `valuepotioncocos.jar` files under `Classes/ValuePotion/android` into `libs` folder.
+2. Open `proj.android > jni > Android.mk` file and append `ValuePotionManager.cpp` and `ValuePotionJni.cpp` like following.
 ```
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/ValuePotion/android/ValuePotionManager.cpp \
                    ../../Classes/ValuePotion/android/ValuePotionJni.cpp
 ```
-3. Google Play Services 프로젝트에 대한 dependency를 추가합니다. 자세한 내용은 [이 문서](https://developer.android.com/google/play-services/setup.html)를 참조하십시오.
-4. Android Support Library 프로젝트에 대한 dependency를 추가합니다. 자세한 내용은 [이 문서](http://developer.android.com/tools/support-library/setup.html)를 참조하십시오.
+3. Add *Google Play Services* as a dependency. Refer to [this document](https://developer.android.com/google/play-services/setup.html) to see the guide.
+4. Add *Android Support Library* as a dependency. Refer to [this document](http://developer.android.com/tools/support-library/setup.html) to see the guide.
 
-### 4. iOS 프로젝트 설정
-1. `proj.ios` 프로젝트를 Xcode에서 연 후, Build Settings 탭에서 Other Linker Flags 항목에 `-ObjC` 플래그를 추가합니다.
+### 4. Setup iOS Project
+1. Open `proj.ios` project in Xcode and add `-ObjC` flag to *Other Linker Flags* under *Build Settings*.
 
-2. Build Phases 탭의 Link Binary With Libraries 항목에 다음의 framework 들을 추가합니다.
+2. Add the following frameworks into *Link Binary With Libraries* under *Build Phases* tab.
   * `UIKit.framework`
   * `Foundation.framework`
   * `CoreGraphics.framework`
@@ -30,13 +30,14 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
   * `CoreTelephony.framework`
   * `AdSupport.framework`
 
-## SDK 초기화
-다음은 SDK를 초기화 하는 예제입니다. 게임 실행 초기에 불려질 수 있도록 `AppDelegate.cpp` 파일의 `bool AppDelegate::applicationDidFinishLaunching()` 메소드 내에서 사용하는 것을 권장합니다.
+## Initialize SDK
+The following example is to initialize SDK. We recommend you to initialize SDK in `bool AppDelegate::applicationDidFinishLaunching()` method of `AppDelegate.cpp` file in order to be initialize SDK in early timing.
+
 ```c
 bool AppDelegate::applicationDidFinishLaunching() {
   ...
 
-  // 밸류포션 웹사이트에서 발급받은 Client ID와 Secret Key를 사용 해 SDK를 초기화 합니다.
+  // Use Client Id and Secret Key you received from Valuepotion website.
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     ValuePotionManager::initialize("ANDROID_APP_CLIENT_ID", "ANDROID_APP_SECRET_KEY");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -47,7 +48,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 }
 ```
 
-안드로이드의 경우 추가적으로, `proj.android` 프로젝트에 포함된 각 Activity에 다음과 같이 코드를 작성합니다.
+In case of Android, you have to add the following code into every Activity under `proj.android` project.
+
 ```java
 protected void onCreate(Bundle savedInstanceState){
   super.onCreate(savedInstanceState);
@@ -83,67 +85,67 @@ protected void onStop() {
   VPCocosBinder.onStop(this);
 }
 ```
-여기까지 설정하면 기본적인 session / install / update 이벤트 트래킹이 가능합니다.
+If you've done so far, now you can see report of session / install / update.
 
-## 인터스티셜 광고 연동
-### 1. 인터스티셜 광고 노출하기
-[밸류포션](https://valuepotion.com) 웹 사이트에서 생성한 캠페인을 인터스티셜 광고의 형태로 자신의 앱에 노출시킬 수 있습니다. 인터스티셜 광고를 화면에 띄우기 위해서는 플레이스먼트를 지정해야 하며, 지정하지 않는 경우 "default" 플레이스먼트가 사용됩니다.
 
-플레이스먼트는 게임 내의 여러 지점에서 원하는 광고를 노출 시킬 수 있도록 하기 위해 부여하는 이름으로, 특별한 제약 없이 원하는 이름을
-문자열로 지정하면 됩니다.
+## Integrate with Interstitial Ads
+
+### 1. Display Interstitial Ads
+If you've created a campaign at [Valuepotion](https://valuepotion.com), you can display it as an interstitial ad at your own app. Before displaying interstitial ads, you should set up a placement. Otherwise, "default" placement will be used by default.
+
+**Placement** is a name to distinguish many points where you want to display ads. There's no restriction but it just should be a string.
 
 ```c
-// "default" 플레이스먼트에 대해 광고를 노출 합니다.
+// Display ads at "default" placement.
 ValuePotionManager::openInterstitial(NULL);
 
-// "main_menu" 플레이스먼트에 대해 광고를 노출 합니다.
+// Display ads at "main_menu" placement.
 ValuePotionManager::openInterstitial("main_menu");
 ```
 
-### 2. 인터스티셜 광고 캐싱하기
-`ValuePotionManager::openInterstitial()` 메소드를 사용하면 HTTP 를 통해 광고 데이터를 받아온 후 화면에 보여주기 때문에, 네트워크 상태에 따라 다소 지연이 발생할 수 있습니다. 최초 게임 구동 시 원하는 플레이스먼트에 대해 광고를 캐싱해두면,
-이후 원하는 시점에 지연 없이 해당 광고를 화면에 노출시킬 수 있습니다.
+### 2. Cache Interstitial Ads
+Using `ValuePotionManager::openInterstitial()` method, the SDK will download data for ads via HTTP and display on screen. So it takes some time. If you cache ads when your game launches, you can display the ads at any time with no delay.
 
 ```c
-// 최초 "after_login" 플레이스먼트에 대해 광고를 캐싱합니다.
+// If you cache an ad for "after_login" placement once,
 ValuePotionManager::cacheInterstitial("after_login");
 
 ...
 
-// 원하는 시점에 "after_login" 플레이스먼트에 대해 광고를 노출합니다.
+// Later on, you can display the ad with no delay.
 ValuePotionManager::openInterstitial("after_login");
 ```
 
-### 3. 캐시가 있을 때만 인터스티셜 광고 노출하기
-특정 플레이스먼트에 캐싱된 광고가 확실히 존재할 때에만 광고를 노출시킬 수도 있습니다.
+### 3. Display Interstitial Ads Only When Caches are Available
+You can display interstitial ads only when caches are available.
 
 ```c
-// "item_shop" 플레이스먼트에 캐싱된 광고가 존재하는지 체크합니다.
+// Check if the cache for "item_shop" placement exists.
 if (ValuePotionManager::hasCachedInterstitial("item_shop")) {
-  // "item_shop" 플레이스먼트에 대해 광고를 노출합니다.
+  // then, display the ad for "item_shop" placement.
   ValuePotionManager::openInterstitial("item_shop");
 }
 ```
 
-## 이벤트 트래킹
-이벤트 트래킹 기능을 통해 게임에 대한 보다 세밀한 분석이 가능합니다. 또한, 이를 기반으로 유저 코호트를 생성하여 마케팅에 활용할 수 있습니다. 이벤트는 크게 비결제 이벤트와 결제 이벤트로 나뉩니다.
+## Event Tracking
+You can analyze your game with event tracking. And based on events you can create cohort to use for marketing. There are non-payment event and payment event.
 
-### 1.비결제 이벤트 트래킹
-비결제 이벤트는 게임 내 결제와 무관한 이벤트로, 주로 사용자 행태 분석을 위해 사용합니다. 비결제 이벤트 트래킹을 위해서는 이벤트의 이름과 값을 지정해야 합니다. 다음은 비결제 이벤트를 전송하는 예제입니다.
+### 1. Non-Payment Event
+Non-payment event is not related to In-App Purchase. You can use non-payment event to analyze user behavior. To use non-payment event, you should define its name and values. The following code is an example to send non-payment event.
 
 ```c
-// 사용자가 3개의 아이템을 획득
+// User has got 3 items.
 ValuePotionManager::trackEvent("get_item_ruby", 3);
 ```
 
-특별한 값이 필요치 않은 이벤트인 경우, 간단히 이벤트 이름만을 지정하여도 됩니다.
+If there's no specific value needed, you can use event name only.
 
 ```c
 // 사용자가 item shop 메뉴에 방문
 ValuePotionManager::trackEvent("enter_item_shop");
 ```
 
-이벤트에 계층을 두어 구분하고 싶을 때는 다음과 같이 사용할 수 있습니다.
+If you want to build a hierarchy of events, you can specify that like following:
 
 ```c
 const char *category = "item";
@@ -153,62 +155,62 @@ double value = 30;
 ValuePotionManager::trackEvent(category, action, label, value);
 ```
 
-### 2. 결제 이벤트 트래킹
-결제 이벤트는 게임 내 구매(In App Billing 또는 In App Purchase)가 발생했을 때 전송하는 이벤트입니다. 결제 이벤트를 트래킹하면 매출액, ARPU, ARPPU, PPU 등 유용한 지표들의 추이를 매일 확인할 수 있습니다.
-다음은 게임 내에서 발생한 결제 이벤트를 전송하는 예제입니다.
+### 2. Payment Event
+Payment event is tracked when In-App Purchase(In-App Billing) has occurred. If you track payment events, you can check daily statistics of Revenue, ARPU, ARPPU, PPU, etc.
+The following code is an example to send payment event occurred in your game.
 
 ```c
-// 0.99 달러의 코인 아이템 구매가 발생
-const char *orderId = "23847983247018237";                 // 결제 성공 후 발행된 영수증 번호
-const char *productId = "com.valuepotion.tester.item_01";  // 아이템의 식별자
+// User purchased $0.99 coin item.
+const char *orderId = "23847983247018237";                 // The identifier of receipt after completing purchase.
+const char *productId = "com.valuepotion.tester.item_01";  // The identifier of item.
 ValuePotionManager::trackPurchaseEvent("purchase_coin", 0.99, "USD", orderId, productId);
 ```
 
-밸류포션은 In App Purchase (이하 IAP) 타입의 캠페인을 제공합니다. 게임 사용자가 IAP 타입의 광고를 통해 매출을 발생시킨 경우, 결제 이벤트에 추가 정보를 더해 전송하면 더욱 상세한 캠페인 별 매출 리포트를 제공 받으실 수 있습니다. 다음은 IAP 광고로부터 발생한 결제 이벤트를 전송하는 예제입니다.
+Valuepotion provides campaign of In-App Purchase (IAP) type. When a user makes revenue via an ad of IAP type, if you add extra info to payment event, you can get revenue report per campaign in detail. The following code is how to send payment event which occurred from IAP ad.
 
-`didRequestPurchase` 델리게이트 메소드에 대한 보다 자세한 정보는 **고급: 델리게이트 메소드** 섹션의 **didRequestPurchase** 항목을 참고하십시오.
+* To see more information about `didRequestPurchase` delegate method, please see **didRequestPurchase** item under **Advanced: Delegate Methods** section *
 
 ```c
 void AppDelegate::didRequestPurchase(const char *placement, const char *name, const char *productId, int quantity, const char *campaignId, const char *contentId)
 {
-  // 요청받은 결제를 진행합니다.
+  // Proceed the requested payment
 
   ...
 
-  // 1,200 원의 다이아몬드 아이템 구매가 발생.
-  const char *orderId = "23847983247018237";                 // 결제 성공 후 발행된 영수증 번호
-  const char *productId = "com.valuepotion.tester.item_01";  // 아이템의 식별자
+  // User purchased some Diamond item for KRW 1,200.
+  const char *orderId = "23847983247018237";                 // The identifier of receipt after completing 
+  const char *productId = "com.valuepotion.tester.item_01";  // The identifier of item.
   ValuePotionManager::trackPurchaseEvent("iap_diamond", 1200, "KRW", orderId, productId, campaignId, contentId);
 }
 ```
 
-비결제 이벤트처럼 category 와 label 을 지정할 수 있습니다.
+You can also specify *category* and *label* like you did with non-payment event.
 
 ```c
 ValuePotionManager::trackPurchaseEvent(category, eventName, label, amount, currency, orderId, productId, campaignId, contentId);
 ```
 
-#### 참고
-* 정확한 집계를 위해, 결제 이벤트 전송 시에는 실제 발생한 결제 금액과 통화 코드를 지정해주십시오.
-* 통화 코드는 [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) 표준을 따릅니다.
+#### Reference
+* For accurate analysis, please specify real purchase amount and currency.
+* We follow [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) for currency.
 
-### 3. 이벤트 트래킹 테스트
-SDK의 테스트 모드를 통해 정상적으로 이벤트가 전송되는지 여부를 쉽게 확인할 수 있습니다. 테스트 모드를 활성화 시키는 방법은 다음과 같습니다.
+### 3. Test If Event Tracking Works
+You can test if event tracking works by using test mode of the SDK. The following code will activate test mode.
 
 ```c
-// 테스트 모드로 설정
+// Activate test mode
 ValuePotionManager::setTest(true);
 ```
 
-테스트 모드로 빌드된 앱에서 전송되는 이벤트는 [밸류포션](https://valuepotion.com) 웹사이트의 개발자 콘솔 메뉴에서 실시간으로 확인 가능합니다.
+If you send events from an app built with test mode, you should see the events on developer's console at [Valuepotion](https://valuepotion.com) at real time.
 
-**주의** : 앱 스토어에 제출하기 위한 최종 빌드 시에는 반드시 테스트 모드를 해제하십시오. 테스트 모드에서 전송된 이벤트는 개발자 콘솔 메뉴에서만 출력되고, 실제 집계에서는 제외됩니다.
+**Warning** : Before submitting your app to app store, please disable test mode. Events sent form test mode are only displayed on Developer's console but excluded from analysis.
 
 
-## 사용자 정보 연동
-이벤트 트래킹과는 별도로, 게임 사용자의 추가 정보에 대한 수집이 가능합니다. 현재 밸류포션에서 지원하는 사용자 정보는 사용자의 계정 ID, 사용자가 속한 게임 서버의 ID, 생년월일, 성별, 레벨, 친구 수, 계정 타입의 7가지입니다. 모든 항목은 선택적이므로, 필요치 않다면 어떤 것도 설정할 필요가 없습니다.
+## Integrate User Information
+You can collect user information as well as events. Possible fields of user information are user id, server id which user belongs to, birthdate, gender, level, number of friends and type of user account. All of them are optional so you can choose which fields to collect.
 
-이 정보들을 이용해 유저 코호트를 생성하여 마케팅에 활용할 수있습니다. 사용자 정보는 게임의 진행 중 변경이 있을 때마다 새로이 설정하여 주시면 자동으로 밸류포션과 연동됩니다.
+You can use this information for marketing by creating user cohort. You can update your information when it changes to integrate with Valuepotion.
 
 ```java
 ValuePotionManager::setUserId("support@valuepotion.com");
@@ -220,32 +222,33 @@ ValuePotionManager::setUserFriends(219);
 ValuePotionManager::setUserAccountType("guest");
 ```
 
-각 사용자 정보 항목에 대한 세부 내용은 다음과 같습니다.
+The following is the detail on each field.
 
-이름             | 설명
+Field           | Description
 --------------- | ------------
-**userId**      | 게임 내에서 사용되는 사용자의 계정 id를 설정합니다.
-**serverId**    | 게임 유저를 서버 별로 식별해야 하는 경우 유저가 속한 서버의 id를 설정합니다.<br>serverId를 기준으로 서버별 통계를 확인할 수 있습니다.
-**birth**       | 사용자의 생년월일 8자리를 문자열로 세팅합니다.<br>연도 정보만 아는 경우 "19840000"과 같이 뒤 4자리를 0으로 채웁니다.<br>생일 정보만 아는 경우 "00001109"와 같이 앞 4자리를 0으로 채웁니다.
-**gender**      | 남성인 경우 "M", 여성인 경우 "F" 문자열로 설정합니다.
-**level**       | 사용자의 게임 내 레벨을 설정합니다.
-**friends**     | 사용자의 친구 수를 설정합니다.
-**accountType** | 사용자의 로그인 계정 타입을 설정합니다. (facebook, google, guest 등)
+**userId**      | User account id used in game
+**serverId**    | If you need to distinguish users by server which they belong to, you should set serverId.<br>Then you can get statistics based on serverId.
+**birth**       | Date of birth in YYYYMMDD. <br>If you know only year of birth, fill last four digits with "0" like "19840000".<br>If you know only date of birth(but not year), fill first four digits with "0" like "00001109".
+**gender**      | "M" for male, "F" for female.
+**level**       | Level of user in game.
+**friends**     | Number of user's friends.
+**accountType** | Type of user account. (facebook, google, guest, etc.)
 
-## Push Notification 연동
-밸류포션 Push Notification API와 연동하면, 손쉽게 Push 타입의 캠페인을 생성하여 사용자에게 메시지를 전송할 수 있습니다. 장기간 게임을 플레이 하지 않은 유저들이 다시 접속하도록 유도하거나, 게임 내 이벤트 소식을 알리는 등 다방면으로 활용이 가능합니다.
+## Integrate Push Notification
+If you integrate with Push Notification API, you can easily create campaigns of Push type and send message to users. So you can wake up users who haven't played game for long time, or you can also notify users new events in game, etc.
 
-### 1. 안드로이드 프로젝트 연동
-[이 문서](https://github.com/valuepotion/valuepotion-android-sdk/blob/master/README.KO.md#push-notification-%EC%97%B0%EB%8F%99)를 참조하십시오.
+### 1. Integerate Android push notification
+Refer to *Integrate Push Notification* section under [this document](https://github.com/valuepotion/valuepotion-android-sdk/blob/master/README.md#integrate-push-notification).
 
-### 2. iOS 프로젝트 연동
-[이 문서](https://github.com/valuepotion/valuepotion-ios-sdk/blob/master/README.KO.md#push-notification-%EC%97%B0%EB%8F%99)를 참조하십시오. 단, `AppDelegate` 클래스가 아닌 `AppController` 클래스에 적용해야 합니다.
+### 2. Integrate iOS push notification
+Refer to *Integrate Push Notification* section under [this document](https://github.com/valuepotion/valuepotion-ios-sdk/blob/master/README.md#push-notification-%EC%97%B0%EB%8F%99). You should integrate with `AppController` class, but not `AppDelegate` class.
 
 
-## 고급: 델리게이트 메소드
-`ValuePotionManagerDelegate` 클래스에는 캠페인 연동 시 활용 가능한 델리게이트 메소드들이 정의되어 있습니다. 모든 델리게이트 메소드의 구현은 선택 사항입니다. 따라서 필요한 이벤트에 대한 핸들러만 구현하여 사용하시면 됩니다.
+## Advanced: Delegate Methods
+`ValuePotionManagerDelegate` class has delegate methods defined to integrate with campaigns. All the delegate methods are optional. You can choose and implement methods as you need.
 
-델리게이트 메소드를 구현할 클래스는 어떤 것이든 관계 없으나, 가능하면 앱이 실행되는 동안 항상 존재하는 `AppDelegate` 클래스를 사용하시는 것을 권장합니다. 먼저, 다음과 같이 delegate를 설정해야 합니다.
+You can implement delegate methods in any class, but we recommend you to do it on `AppDelegate` class since it stays alive all the time.
+
 ```c
 // AppDelegate.h
 #include "cocos2d.h"
@@ -264,97 +267,96 @@ bool AppDelegate::applicationDidFinishLaunching()
 }
 ```
 
-### 1. Interstitial 노출 관련
+### 1. Delegate Methods for Displaying Interstitial Ad
 #### willOpenInterstitial
-`ValuePotionManager::openInterstitial()` 메소드 호출 후, 인터스티셜 광고가 성공적으로 화면에 노출되는 시점에  호출됩니다.
+This delegate methods occurs when displaying interstitial ad is successfully done after calling `ValuePotionManager::openInterstitial()` method.
 
 ```c
 void AppDelegate::willOpenInterstitial(const char *placement)
 {
-  // 인터스티셜 광고가 열릴 때 필요한 작업이 있다면 여기에 구현합니다.
-  // 실행 중인 게임을 pause 시키는 등의 처리를 할 수 있습니다.
+  // Put something you need to do when interstitial ad is displayed.
+  // For example, you can pause game here.
 }
 ```
 
 #### didFailToOpenInterstitial
-`ValuePotionManager::openInterstitial()` 메소드 호출 후, 인터스티셜 광고가 화면에 노출되지 못하는 경우 호출됩니다.
+This delegate method occurs when displaying interstitial ad is failed after calling `ValuePotionManager::openInterstitial()` method.
 
 ```java
 void AppDelegate::didFailToOpenInterstitial(const char *placement, const char *errorMessage)
 {
-  // 인터스티셜 광고 노출에 실패했을 때 필요한 작업이 있다면 여기에 구현합니다.
-  // 실패한 원인은 errorMessage 를 통해 확인할 수 있습니다.
+  // Put something you need to do when interstitial ad gets failed.
+  // You can check reason of failure via errorMessage variable.
 }
 ```
 
 #### didCloseInterstitial
-인터스티셜 광고가 열려있는 상태에서 닫힐 때 호출됩니다.
+This delegate method occurs when interstitial ad closes.
 
 ```c
 void AppDelegate::didCloseInterstitial(const char *placement)
 {
-  // 인터스티셜 광고가 닫힐 때 필요한 작업이 있다면 여기에 구현합니다.
-  // 광고가 열려있는 동안 게임을 pause 시켰다면, 여기서 resume 시키는 등의 처리를 할 수 있습니다.
+  // Put something you need to do when interstitial ad closes.
+  // If you paused your game during ad is open, now you can resume it here.
 }
 ```
 
-### 2. Interstitial 캐싱 관련
+### 2. Delegate Methods for Caching Interstitial Ad
 #### didChacheInterstitial
-`ValuePotionManger::cacheInterstitial()` 메소드 호출 후, 성공적으로 광고가 캐싱 되었을 때 호출됩니다.
+This event occurs when caching interstitial ad is successfully done after calling `ValuePotionManger::cacheInterstitial()` method.
 
 ```c
 void AppDelegate::didCacheInterstitial(const char *placement)
 {
-  // 인터스티셜 광고 캐싱이 완료된 후 필요한 작업이 있다면 여기에 구현합니다.
+  // Put something you need to do when caching interstitial ad is successfully done
 }
 ```
 
 #### didFailToCacheInterstitial
-`ValuePotionManager::cacheIntestitial()` 메소드 호출 후, 광고 캐싱에 실패했을 때 호출됩니다.
+This event occurs when caching interstitial ad is failed after calling `ValuePotionManager::cacheIntestitial()` method.
 
 ```c
 void AppDelegate::didFailToCacheInterstitial(const char *placement, const char *errorMessage)
 {
-  // 인터스티셜 광고 캐싱에 실패했을 때 필요한 작업이 있다면 여기에 구현합니다.
-  // 실패한 원인은 errorMessage 를 통해 확인할 수 있습니다.
+  // Put something you need to do when caching interstitial ad is failed.
+  // You can check reason of failure via errorMessage variable.
 }
 ```
 
-### 3. Interstitial 액션 관련
+### 3. Delegate Methods for Interstitial Ad Action
 #### didRequestOpenURL
-인터스티셜 광고 노출 상태에서 사용자가 외부 링크를 클릭하는 경우 발생합니다.
+This event occurs when user clicks external url while interstitial ad is displayed.
 
 ```c
 void AppDelegate::didRequestOpenURL(const char *placement, const char *URL)
 {
-  // 외부 링크를 열 때 필요한 작업이 있다면 여기에 구현합니다.
-  // 앱이 Background로 진입하게 되므로, 사용자 데이터를 저장하는 등의 처리를 할 수 있습니다.
+  // Put something you need to do when external url gets opened.
+  // App soon goes background, so you can do something like saving user data, etc.
 }
 ```
 
 #### didRequestPurchase
-IAP 타입의 인터스티셜 광고 노출 상태에서 사용자가 '결제하기'를 선택하는 경우 발생합니다.
+This delegate method occurs when user pressed 'Purchase' button while interstitial ad of IAP type is displayed.
 
 ```c
 void AppDelegate::didRequestPurchase(const char *placement, const char *name, const char *productId, int quantity, const char *campaignId, const char *contentId)
 {
-  // 인자로 전달된 productId, quantity 정보를 가지고 실제 결제를 진행하도록 구현합니다.
-  // 결제가 완료된 이후 ValuePotionManager::trackPurchaseEvent() 메소드를 사용해
-  // 결제 이벤트를 전송하면 매출 리포트가 집계됩니다.
+  // Put codes to process real purchase by using parameters: productId, quantity.
+  // After purchase, call ValuePotionManager::trackPurchaseEvent() method for revenue report.
 }
 ```
 
 #### didRequestRewards
-Reward 타입의 인터스티셜 광고가 노출될 때 발생합니다.
+This delegate method occurs when interstitial ad of Reward type is displayed.
 
 ```c
 void AppDelegate::didRequestRewards(const char *placement, std::vector<Reward> rewards)
 {
-  // rewards 벡터에는 해당 광고를 통해 사용자에게 지급하고자 하는 리워드 정보들이 담겨있습니다.
-  // 이 정보들을 가지고 사용자에게 리워드를 지급하는 코드를 구현합니다.
+  // Vector 'rewards' contains rewards which ad is about to give users.
+  // With this information you should implement actual code to give rewards to users.
   for (int i = 0; i < rewards.size(); i++) {
     Reward reward = rewards.at(i);
-    // 지급할 리워드 아이템의 이름과 수량.
+    // The names of quantities of rewards to give
     printf("%s, %d", reward.name, reward.quantity);
   }
 }
