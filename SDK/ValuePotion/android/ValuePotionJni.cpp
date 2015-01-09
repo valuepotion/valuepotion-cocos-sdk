@@ -177,6 +177,34 @@ void ValuePotionJni::trackPurchaseEvent(const char *eventName, double revenueAmo
 	methodInfo.env->DeleteLocalRef(arg7);
 }
 
+void ValuePotionJni::trackPurchaseEvent(const char *category, const char *eventName, const char *label, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId)
+{
+	JniMethodInfo methodInfo;
+
+	if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "trackPurchaseEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"))
+	{
+		return;
+	}
+	jstring arg1 = methodInfo.env->NewStringUTF(category);
+	jstring arg2 = methodInfo.env->NewStringUTF(eventName);
+	jstring arg3 = methodInfo.env->NewStringUTF(label);
+	jstring arg5 = methodInfo.env->NewStringUTF(currency);
+	jstring arg6 = methodInfo.env->NewStringUTF(orderId);
+	jstring arg7 = methodInfo.env->NewStringUTF(productId);
+	jstring arg8 = methodInfo.env->NewStringUTF(campaignId);
+	jstring arg9 = methodInfo.env->NewStringUTF(contentId);
+	methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, arg1, arg2, arg3, revenueAmount, arg5, arg6, arg7, arg8, arg9);
+	methodInfo.env->DeleteLocalRef(methodInfo.classID);
+	methodInfo.env->DeleteLocalRef(arg1);
+	methodInfo.env->DeleteLocalRef(arg2);
+	methodInfo.env->DeleteLocalRef(arg3);
+	methodInfo.env->DeleteLocalRef(arg5);
+	methodInfo.env->DeleteLocalRef(arg6);
+	methodInfo.env->DeleteLocalRef(arg7);
+	methodInfo.env->DeleteLocalRef(arg8);
+	methodInfo.env->DeleteLocalRef(arg9);
+}
+
 void ValuePotionJni::setUserId(const char *userId)
 {
 	JniMethodInfo methodInfo;

@@ -57,6 +57,11 @@ void ValuePotionManager::trackPurchaseEvent(const char *eventName, double revenu
 	ValuePotionJni::trackPurchaseEvent(eventName, revenueAmount, currency, orderId, productId, campaignId, contentId);
 }
 
+void ValuePotionManager::trackPurchaseEvent(const char *category, const char *eventName, const char *label, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId)
+{
+	ValuePotionJni::trackPurchaseEvent(category, eventName, label, revenueAmount, currency, orderId, productId, campaignId, contentId);
+}
+
 
 void ValuePotionManager::setUserId(const char *userId)
 {

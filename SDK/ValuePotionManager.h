@@ -1,9 +1,10 @@
 //
 //  ValuePotionManager.h
 //  VPCocos
+//  Version 1.0.2
 //
 //  Created by Gil on 10/13/14.
-//
+//  Copyright (c) 2013 ValuePotion. All rights reserved.
 //
 
 #ifndef ValuePotionManager_h
@@ -13,7 +14,7 @@
 #include <vector>
 
 static const char *SDK_TYPE = "Cocos";
-static const char *SDK_VERSION = "1.0.1";
+static const char *SDK_VERSION = "1.0.2";
 
 struct Reward
 {
@@ -49,6 +50,7 @@ public:
     static void trackEvent(const char *category, const char *eventName, const char *label, double eventValue);
     static void trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId);
     static void trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId);
+    static void trackPurchaseEvent(const char *category, const char *eventName, const char *label, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId);
 
     static void setUserId(const char *userId);
     static void setUserServerId(const char *serverId);

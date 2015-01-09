@@ -96,15 +96,34 @@ void ValuePotionManager::trackEvent(const char *categroy, const char *eventName,
 void ValuePotionManager::trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId)
 {
     [[ValuePotion sharedInstance] trackPurchaseEvent:NSStringFromCString(eventName)
+                                            category:nil
+                                               label:nil
                                        revenueAmount:revenueAmount
                                             currency:NSStringFromCString(currency)
                                        transactionId:NSStringFromCString(orderId)
-                                           productId:NSStringFromCString(productId)];
+                                           productId:NSStringFromCString(productId)
+                                          campaignId:nil
+                                           contentId:nil];
 }
 
 void ValuePotionManager::trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId)
 {
     [[ValuePotion sharedInstance] trackPurchaseEvent:NSStringFromCString(eventName)
+                                            category:nil
+                                               label:nil
+                                       revenueAmount:revenueAmount
+                                            currency:NSStringFromCString(currency)
+                                       transactionId:NSStringFromCString(orderId)
+                                           productId:NSStringFromCString(productId)
+                                          campaignId:NSStringFromCString(campaignId)
+                                           contentId:NSStringFromCString(contentId)];
+}
+
+void ValuePotionManager::trackPurchaseEvent(const char *category, const char *eventName, const char *label, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId)
+{
+    [[ValuePotion sharedInstance] trackPurchaseEvent:NSStringFromCString(eventName)
+                                            category:NSStringFromCString(category)
+                                               label:NSStringFromCString(label)
                                        revenueAmount:revenueAmount
                                             currency:NSStringFromCString(currency)
                                        transactionId:NSStringFromCString(orderId)

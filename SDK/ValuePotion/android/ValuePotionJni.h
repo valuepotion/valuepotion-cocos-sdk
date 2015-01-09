@@ -24,6 +24,7 @@ class ValuePotionJni {
 		static void trackEvent(const char *category, const char *eventName, const char *label, double eventValue);
 		static void trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId);
 		static void trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId);
+		static void trackPurchaseEvent(const char *category, const char *eventName, const char *label, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId);
 
 		static void setUserId(const char *userId);
 		static void setUserServerId(const char *serverId);

@@ -1,7 +1,7 @@
 //
 //  ValuePotion.h
 //  SDK
-//  Version 1.0.4
+//  Version 1.0.6
 //
 //  Created by Gil on 10/3/13.
 //  Copyright (c) 2013 ValuePotion. All rights reserved.
@@ -33,6 +33,7 @@
 - (void)trackEvent:(NSString *)eventName category:(NSString *)category label:(NSString *)label value:(NSNumber *)value;
 - (void)trackPurchaseEvent:(NSString *)eventName revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(NSString *)transactionId productId:(NSString *)productId;
 - (void)trackPurchaseEvent:(NSString *)eventName revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(NSString *)transactionId productId:(NSString *)productId campaignId:(NSString *)campaignId contentId:(NSString *)contentId;
+- (void)trackPurchaseEvent:(NSString *)eventName category:(NSString *)category label:(NSString *)label revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(NSString *)transactionId productId:(NSString *)productId campaignId:(NSString *)campaignId contentId:(NSString *)contentId;
 - (void)trackEvent:(NSString *)eventName values:(NSDictionary *)values __deprecated;
 - (void)trackPurchaseEvent:(NSString *)eventName revenueAmount:(double)revenueAmount currency:(NSString *)currency __deprecated;
 - (void)trackPurchaseEvent:(NSString *)eventName revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(NSString *)transactionId __deprecated;
