@@ -178,8 +178,14 @@ void AppDelegate::didRequestPurchase(const char *placement, const char *name, co
   // 1,200 원의 다이아몬드 아이템 구매가 발생.
   const char *orderId = "23847983247018237";                 // 결제 성공 후 발행된 영수증 번호
   const char *productId = "com.valuepotion.tester.item_01";  // 아이템의 식별자
-  ValuePotionManager::.trackPurchaseEvent("iap_diamond", 1200, "KRW", orderId, productId, campaignId, contentId);
+  ValuePotionManager::trackPurchaseEvent("iap_diamond", 1200, "KRW", orderId, productId, campaignId, contentId);
 }
+```
+
+비결제 이벤트처럼 category 와 label 을 지정할 수 있습니다.
+
+```c
+ValuePotionManager::trackPurchaseEvent(category, eventName, label, amount, currency, orderId, productId, campaignId, contentId);
 ```
 
 #### 참고
