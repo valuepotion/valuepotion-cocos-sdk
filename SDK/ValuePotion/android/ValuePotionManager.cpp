@@ -62,6 +62,15 @@ void ValuePotionManager::trackPurchaseEvent(const char *category, const char *ev
 	ValuePotionJni::trackPurchaseEvent(category, eventName, label, revenueAmount, currency, orderId, productId, campaignId, contentId);
 }
 
+void ValuePotionManager::onBackPressed()
+{
+	ValuePotionJni::onBackPressed();
+}
+
+void ValuePotionManager::cacheEndingInterstitial()
+{
+	ValuePotionJni::cacheEndingInterstitial();
+}
 
 void ValuePotionManager::setUserId(const char *userId)
 {

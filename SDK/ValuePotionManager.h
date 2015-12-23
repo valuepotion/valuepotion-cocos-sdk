@@ -14,7 +14,7 @@
 #include <vector>
 
 static const char *SDK_TYPE = "Cocos";
-static const char *SDK_VERSION = "1.0.6";
+static const char *SDK_VERSION = "1.0.7";
 
 struct Reward
 {
@@ -33,6 +33,8 @@ public:
     virtual void didRequestOpenURL(const char *placement, const char *URL) {}
     virtual void didRequestPurchase(const char *placement, const char *name, const char *productId, int quantity, const char *campaignId, const char *contentId) {}
     virtual void didRequestRewards(const char *placement, std::vector<Reward> rewards) {}
+    virtual void didFailToGetEndingInterstitial() {}
+    virtual void willCloseAppAfterEndingInterstitial() {}
 };
 
 class ValuePotionManager {
@@ -51,6 +53,11 @@ public:
     static void trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId);
     static void trackPurchaseEvent(const char *eventName, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId);
     static void trackPurchaseEvent(const char *category, const char *eventName, const char *label, double revenueAmount, const char *currency, const char *orderId, const char *productId, const char *campaignId, const char *contentId);
+
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    static void onBackPressed();
+    static void cacheEndingInterstitial();
+    #endif
 
     static void setUserId(const char *userId);
     static void setUserServerId(const char *serverId);

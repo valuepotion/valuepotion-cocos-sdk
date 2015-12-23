@@ -15,6 +15,9 @@ class ValuePotionJni {
 
 		static void setTest(bool isTest);
 
+		static void onBackPressed();
+		static void cacheEndingInterstitial();
+
 		static bool hasCachedInterstitial(const char *placement);
 		static void cacheInterstitial(const char *placement);
 		static void openInterstitial(const char *placement);

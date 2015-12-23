@@ -205,6 +205,30 @@ void ValuePotionJni::trackPurchaseEvent(const char *category, const char *eventN
 	methodInfo.env->DeleteLocalRef(arg9);
 }
 
+void ValuePotionJni::cacheEndingInterstitial()
+{
+	JniMethodInfo methodInfo;
+
+	if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "cacheEndingInterstitial", "()V"))
+	{
+		return;
+	}
+	methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+	methodInfo.env->DeleteLocalRef(methodInfo.classID);
+}
+
+void ValuePotionJni::onBackPressed()
+{
+	JniMethodInfo methodInfo;
+
+	if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "onBackPressed", "()V"))
+	{
+		return;
+	}
+	methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+	methodInfo.env->DeleteLocalRef(methodInfo.classID);
+}
+
 void ValuePotionJni::setUserId(const char *userId)
 {
 	JniMethodInfo methodInfo;
@@ -392,5 +416,15 @@ extern "C"
 			Reward reward = (Reward) rewards.at(i);
 			delete[] reward.name;
 		}
+	}
+
+	void Java_com_valuepotion_sdk_cocos_android_VPCocosBinder_onEndingInterstitialNotFound(JNIEnv* env, jobject thiz)
+	{
+		ValuePotionJni::s_delegate->didFailToGetEndingInterstitial();
+	}
+
+	void Java_com_valuepotion_sdk_cocos_android_VPCocosBinder_onAppClosingAfterEndingInterstitial(JNIEnv* env, jobject thiz)
+	{
+		ValuePotionJni::s_delegate->willCloseAppAfterEndingInterstitial();
 	}
 }
