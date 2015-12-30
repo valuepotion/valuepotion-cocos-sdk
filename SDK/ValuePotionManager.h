@@ -14,7 +14,7 @@
 #include <vector>
 
 static const char *SDK_TYPE = "Cocos";
-static const char *SDK_VERSION = "1.0.7";
+static const char *SDK_VERSION = "1.0.8";
 
 struct Reward
 {
