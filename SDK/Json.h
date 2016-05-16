@@ -25,6 +25,7 @@
 #ifndef SPINE_JSON_H_
 #define SPINE_JSON_H_
 
+#include "ExtensionExport.h"
 #include "ExtensionMacros.h"
 
 namespace cocos2d { namespace extension {
