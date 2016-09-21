@@ -1,7 +1,7 @@
 //
 //  ValuePotionManager.h
 //  VPCocos
-//  Version 1.0.9
+//  Version 1.0.10
 //
 //  Created by Gil on 10/13/14.
 //  Copyright (c) 2013 ValuePotion. All rights reserved.
@@ -14,7 +14,7 @@
 #include <vector>
 
 static const char *SDK_TYPE = "Cocos";
-static const char *SDK_VERSION = "1.0.9";
+static const char *SDK_VERSION = "1.0.10";
 
 struct Reward
 {

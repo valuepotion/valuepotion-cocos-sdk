@@ -8,7 +8,7 @@
 
 #include "cocos2d.h"
 #include "ValuePotionManager.h"
-#import "ValuePotion.h"
+#import <ValuePotion/ValuePotion.h>
 
 @interface ValuePotionDelegateBridge : NSObject<ValuePotionDelegate>
 @end
