@@ -1,14 +1,12 @@
 //
 //  ValuePotionManager.mm
-//  VPCocos
 //
-//  Created by Gil on 10/13/14.
-//
+//  Copyright (c) 2015 ValuePotion. All rights reserved.
 //
 
 #include "cocos2d.h"
 #include "ValuePotionManager.h"
-#import "ValuePotion.h"
+#import <ValuePotion/ValuePotion.h>
 
 @interface ValuePotionDelegateBridge : NSObject<ValuePotionDelegate>
 @end
@@ -214,7 +212,7 @@ void ValuePotionManager::setUserAccountType(const char *accountType)
 - (void)didRequestPurchase:(VPPurchase *)purchase placement:(NSString *)placement
 {
     if (sManagerDelegate) {
-        sManagerDelegate->didRequestPurchase([placement UTF8String], [purchase.name UTF8String], [purchase.productId UTF8String], purchase.quantity, [purchase.campaignId UTF8String], [purchase.contentId UTF8String]);
+        sManagerDelegate->didRequestPurchase([placement UTF8String], [purchase.name UTF8String], [purchase.productId UTF8String], (int)purchase.quantity, [purchase.campaignId UTF8String], [purchase.contentId UTF8String]);
     }
 }
 
@@ -224,7 +222,7 @@ void ValuePotionManager::setUserAccountType(const char *accountType)
         std::vector<Reward> cppRewards;
         for (int i = 0; i < rewards.count; i++) {
             VPReward *reward = [rewards objectAtIndex:i];
-            Reward r = {CStringFromNSString(reward.name), reward.quantity};
+            Reward r = {CStringFromNSString(reward.name), static_cast<int>(reward.quantity)};
             cppRewards.push_back(r);
         }
         sManagerDelegate->didRequestRewards([placement UTF8String], cppRewards);
