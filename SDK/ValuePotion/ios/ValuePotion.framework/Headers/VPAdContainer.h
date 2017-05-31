@@ -13,6 +13,8 @@
 @class VPAdItem;
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * The VPAdContainer is passed from '-[ValuePotion requestAdWithOptions:completion:]' delegate method.
  *
@@ -20,8 +22,8 @@
  */
 @interface VPAdContainer : NSObject
 
-@property (nonatomic, strong, readonly, nonnull) NSString *placement;
-@property (nonatomic, strong, readonly, nonnull) VPAdDimension *dimension;
+@property (nonatomic, strong, readonly) NSString *placement;
+@property (nonatomic, strong, readonly) VPAdDimension *dimension;
 
 /**
  * Pop ad item from the item queue. If container has no more ad, returns nil.
@@ -32,9 +34,11 @@
  * The array contains ad items.
  */
 #ifdef AVAILABLE_SWIFT2_GENERIC
-@property (nonatomic, readonly, nonnull) NSArray<VPAdItem *>* items;
+@property (nonatomic, readonly) NSArray<VPAdItem *>* items;
 #else
-@property (nonatomic, readonly, nonnull) NSArray* items;
+@property (nonatomic, readonly) NSArray* items;
 #endif
 
 @end
+
+NS_ASSUME_NONNULL_END

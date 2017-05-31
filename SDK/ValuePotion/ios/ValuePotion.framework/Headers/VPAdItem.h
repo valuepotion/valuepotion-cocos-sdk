@@ -18,4 +18,6 @@
     id _internal;
 }
 
+@property (nonatomic, assign, readonly, getter=isVideoAd) BOOL videoAd VP_SWIFT_NAME(isVideoAd);
+
 @end

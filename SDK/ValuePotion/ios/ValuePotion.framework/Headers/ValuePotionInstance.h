@@ -1,8 +1,6 @@
 //
 //  ValuePotionInstance.h
-//  SDK
 //
-//  Created by sven on 2016. 9. 2..
 //  Copyright © 2016년 ValuePotion. All rights reserved.
 //
 
@@ -20,8 +18,11 @@
 @protocol ValuePotionDelegate;
 
 
-OBJC_EXTERN NSString *const __nonnull VPValuePotionWillPresentVideoAdNotification;
-OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification;
+NS_ASSUME_NONNULL_BEGIN
+
+
+OBJC_EXTERN NSString *const VPValuePotionWillPresentVideoAdNotification;
+OBJC_EXTERN NSString *const VPValuePotionDidDismissVideoAdNotification;
 
 
 /**
@@ -64,7 +65,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  *
  * @return ValuePotion singleton instance.
  */
-+ (nonnull ValuePotion *)sharedInstance VP_SWIFT_NAME(shared());
++ (ValuePotion *)sharedInstance VP_SWIFT_NAME(shared());
 
 /**
  * Initialize valuepotion library.
@@ -72,33 +73,34 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  * @param clientId The client id to use ValuePotion sdk
  * @param secretKey The secret key
  */
-- (void)initializeWithClientId:(nonnull NSString *)clientId secretKey:(nonnull NSString *)secretKey VP_SWIFT_NAME(initialize(clientId:secretKey:));
+- (void)initializeWithClientId:(NSString *)clientId secretKey:(NSString *)secretKey VP_SWIFT_NAME(initialize(clientId:secretKey:));
 
 #pragma mark - Interstitial Methods
-- (BOOL)hasCachedInterstitial:(nonnull NSString *)placement __TVOS_PROHIBITED;
-- (void)cacheInterstitial:(nonnull NSString *)placement __TVOS_PROHIBITED;
+- (BOOL)hasCachedInterstitial:(NSString *)placement __TVOS_PROHIBITED;
+- (void)cacheInterstitial:(NSString *)placement __TVOS_PROHIBITED;
 - (void)openInterstitial:(nullable NSString *)placement __TVOS_PROHIBITED;
 
 #pragma mark - Interstitial Methods with contentSeq
-- (BOOL)hasCachedInterstitial:(nonnull NSString *)placement contentSeq:(nullable NSString *)contentSeq __TVOS_PROHIBITED;
-- (void)cacheInterstitial:(nonnull NSString *)placement contentSeq:(nullable NSString *)contentSeq __TVOS_PROHIBITED;
+- (BOOL)hasCachedInterstitial:(NSString *)placement contentSeq:(nullable NSString *)contentSeq __TVOS_PROHIBITED;
+- (void)cacheInterstitial:(NSString *)placement contentSeq:(nullable NSString *)contentSeq __TVOS_PROHIBITED;
 - (void)openInterstitial:(nullable NSString *)placement contentSeq:(nullable NSString *)contentSeq __TVOS_PROHIBITED;
 
 #pragma mark - RequestOptions Methods
-- (void)requestAdWithOptions:(nonnull VPAdRequestOptions *)options completion:(nonnull VPAdRequestCallback)completion __TVOS_PROHIBITED VP_SWIFT_NAME(requestAd(options:completion:));
+- (void)requestAdWithOptions:(VPAdRequestOptions *)options completion:(VPAdRequestCallback)completion __TVOS_PROHIBITED VP_SWIFT_NAME(requestAd(with:completion:));
 
 #pragma mark - Tracking Methods
-- (void)trackEvent:(nonnull NSString *)eventName value:(nullable NSNumber *)value VP_SWIFT_NAME(track(event:value:));
-- (void)trackEvent:(nonnull NSString *)eventName category:(nullable NSString *)category label:(nullable NSString *)label value:(nullable NSNumber *)value VP_SWIFT_NAME(track(event:category:label:value:));
-- (void)trackPurchaseEvent:(nonnull NSString *)eventName revenueAmount:(double)revenueAmount currency:(nonnull NSString *)currency transactionId:(nullable NSString *)transactionId productId:(nullable NSString *)productId VP_SWIFT_NAME(track(purchaseEvent:revenueAmount:currency:transactionId:productId:));
-- (void)trackPurchaseEvent:(nonnull NSString *)eventName revenueAmount:(double)revenueAmount currency:(nonnull NSString *)currency transactionId:(nullable NSString *)transactionId productId:(nullable NSString *)productId campaignId:(nullable NSString *)campaignId contentId:(nullable NSString *)contentId VP_SWIFT_NAME(track(purchaseEvent:revenueAmount:currency:transactionId:productId:campaignId:contentId:));
-- (void)trackPurchaseEvent:(nonnull NSString *)eventName category:(nullable NSString *)category label:(nullable NSString *)label revenueAmount:(double)revenueAmount currency:(nonnull NSString *)currency transactionId:(nullable NSString *)transactionId productId:(nullable NSString *)productId campaignId:(nullable NSString *)campaignId contentId:(nullable NSString *)contentId VP_SWIFT_NAME(track(purchaseEvent:category:label:revenueAmount:currency:transactionId:productId:campaignId:contentId:));
+- (void)trackEvent:(NSString *)eventName value:(nullable NSNumber *)value VP_SWIFT_NAME(track(event:value:));
+- (void)trackEvent:(NSString *)eventName category:(nullable NSString *)category label:(nullable NSString *)label value:(nullable NSNumber *)value VP_SWIFT_NAME(track(event:category:label:value:));
+- (void)trackPurchaseEvent:(NSString *)eventName revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(nullable NSString *)transactionId productId:(nullable NSString *)productId VP_SWIFT_NAME(track(purchaseEvent:revenueAmount:currency:transactionId:productId:));
+- (void)trackPurchaseEvent:(NSString *)eventName revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(nullable NSString *)transactionId productId:(nullable NSString *)productId campaignId:(nullable NSString *)campaignId contentId:(nullable NSString *)contentId VP_SWIFT_NAME(track(purchaseEvent:revenueAmount:currency:transactionId:productId:campaignId:contentId:));
+- (void)trackPurchaseEvent:(NSString *)eventName category:(nullable NSString *)category label:(nullable NSString *)label revenueAmount:(double)revenueAmount currency:(NSString *)currency transactionId:(nullable NSString *)transactionId productId:(nullable NSString *)productId campaignId:(nullable NSString *)campaignId contentId:(nullable NSString *)contentId VP_SWIFT_NAME(track(purchaseEvent:category:label:revenueAmount:currency:transactionId:productId:campaignId:contentId:));
 
 #pragma mark - Push Notification Methods
 - (void)registerForPushNotification __TVOS_PROHIBITED;
 - (void)unregisterForPushNotification __TVOS_PROHIBITED;
 - (BOOL)isPushNotificationEnabled __TVOS_PROHIBITED;
-- (void)registerPushToken:(nonnull NSData *)token __TVOS_PROHIBITED;
+- (void)registerPushToken:(NSData *)token __TVOS_PROHIBITED;
+- (void)registerPushTokenString:(NSString *)tokenString __TVOS_PROHIBITED;
 - (void)forwardPushInfo:(nullable NSDictionary *)info __TVOS_PROHIBITED;
 
 #pragma mark - UserInfo Methods
@@ -110,7 +112,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
 - (void)setUserLevel:(double)level;
 - (void)setUserFriends:(double)friends;
 - (void)setUserAccountType:(nullable NSString *)accountType;
-- (void)setUserValue:(nonnull id)value forKey:(nonnull NSString *)key;
+- (void)setUserValue:(id)value forKey:(NSString *)key;
 
 #pragma mark - Interstitial Settings
 
@@ -157,7 +159,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  *
  * @param placement The interstitial ad's placement
  */
-- (void)didCacheInterstitial:(nonnull NSString *)placement;
+- (void)didCacheInterstitial:(NSString *)placement;
 
 /**
  * Sent if it failed to cache interstitial ad.
@@ -165,14 +167,14 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  * @param placement The interstitial ad's placement
  * @param error The error that occurred during caching
  */
-- (void)didFailToCacheInterstitial:(nonnull NSString *)placement error:(nullable NSError *)error;
+- (void)didFailToCacheInterstitial:(NSString *)placement error:(nullable NSError *)error;
 
 /**
  * Sent before interstitial view present on window.
  *
  * @param placement The interstitial ad's placement
  */
-- (void)willOpenInterstitial:(nonnull NSString *)placement;
+- (void)willOpenInterstitial:(NSString *)placement;
 
 /**
  * Sent if it failed to present interstitial ad's view.
@@ -180,14 +182,14 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  * @param placement The interstitial ad's placement
  * @param error The error that occurred during presenting view
  */
-- (void)didFailToOpenInterstitial:(nonnull NSString *)placement error:(nullable NSError *)error;
+- (void)didFailToOpenInterstitial:(NSString *)placement error:(nullable NSError *)error;
 
 /**
  * Sent after interstitial view is dismissed.
  *
  * @param placement The interstitial ad's placement
  */
-- (void)didCloseInterstitial:(nonnull NSString *)placement;
+- (void)didCloseInterstitial:(NSString *)placement;
 
 /**
  * Sent after a user select a hyperlink in interstitial ad's view.
@@ -195,7 +197,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  * @param urlString The link url that a user select
  * @param placement The interstitial ad's placement
  */
-- (void)didRequestOpenURL:(nonnull NSString *)urlString placement:(nonnull NSString *)placement;
+- (void)didRequestOpenURL:(NSString *)urlString placement:(NSString *)placement;
 
 /**
  * Sent after a user select a purchase in interstitial ad's view.
@@ -203,7 +205,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  * @param purchase The purchase information url that a user select.
  * @param placement The interstitial ad's placement
  */
-- (void)didRequestPurchase:(nonnull VPPurchase *)purchase placement:(nonnull NSString *)placement;
+- (void)didRequestPurchase:(VPPurchase *)purchase placement:(NSString *)placement;
 
 /**
  * Sent after interstitial ad's view of reward campaign is presented.
@@ -212,9 +214,9 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  * @param placement The interstitial ad's placement
  */
 #ifdef AVAILABLE_SWIFT2_GENERIC
-- (void)didRequestRewards:(nonnull NSArray<VPReward *> *)rewards placement:(nonnull NSString *)placement;
+- (void)didRequestRewards:(NSArray<VPReward *> *)rewards placement:(NSString *)placement;
 #else
-- (void)didRequestRewards:(nonnull NSArray *)rewards placement:(nonnull NSString *)placement;
+- (void)didRequestRewards:(NSArray *)rewards placement:(NSString *)placement;
 #endif
 
 /**
@@ -222,7 +224,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  *
  * @param placement The interstitial ad's placement
  */
-- (void)didCompleteConversion:(nonnull NSString *)placement;
+- (void)didCompleteConversion:(NSString *)placement;
 
 /**
  * Decides whether to allow or cancel to play a video ad.
@@ -230,7 +232,7 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  *
  * If you don't implement this method, video ads are played automatically.
  */
-- (void)decideToPlayVideo:(nonnull NSString *)placement contentSeq:(nonnull NSString *)contentSeq decisionHandler:(nonnull void (^)(BOOL play))decisionHandler;
+- (void)decideToPlayVideo:(NSString *)placement contentSeq:(NSString *)contentSeq decisionHandler:(void (^)(BOOL play))decisionHandler;
 
 /**
  * Sent after a user watches the video ad until the end.
@@ -238,12 +240,12 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  *
  * If you don't implement this method, the interstitial ad will be closed automatically.
  */
-- (void)didCompleteVideoWatching:(nonnull NSString *)placement contentSeq:(nonnull NSString *)contentSeq closingHandler:(nonnull void (^)(BOOL closeInterstitial))closingHandler;
+- (void)didCompleteVideoWatching:(NSString *)placement contentSeq:(NSString *)contentSeq closingHandler:(void (^)(BOOL closeInterstitial))closingHandler;
 
 /**
  * Sent when a video loading is failed.
  */
-- (void)didFailToLoadVideo:(nonnull NSString *)placement error:(nonnull NSError *)error;
+- (void)didFailToLoadVideo:(NSString *)placement error:(NSError *)error;
 
 /**
  * Sent after a user cancels playing the video ad before the end.
@@ -251,6 +253,8 @@ OBJC_EXTERN NSString *const __nonnull VPValuePotionDidDismissVideoAdNotification
  *
  * If you don't implement this method, only the video view will be closed without closing the interstitial ad.
  */
-- (void)didCancelToWatchVideo:(nonnull NSString *)placement duration:(float)duration position:(float)position closingHandler:(nonnull void (^)(BOOL closeInterstitial))closingHandler;
+- (void)didCancelToWatchVideo:(NSString *)placement duration:(float)duration position:(float)position closingHandler:(void (^)(BOOL closeInterstitial))closingHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END

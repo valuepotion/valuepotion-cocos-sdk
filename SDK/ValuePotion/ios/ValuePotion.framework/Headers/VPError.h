@@ -4,7 +4,12 @@
 //  Copyright © 2016년 ValuePotion. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #import <ValuePotion/ValuePotionDefines.h>
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 
 typedef NS_ENUM(NSInteger, VPErrorType) {
@@ -28,8 +33,27 @@ typedef NS_ENUM(NSInteger, VPErrorType) {
     VPErrorTypeRequestTooSoon,
     /** Server error. */
     VPErrorTypeServerError,
+    /** Wrong video request. */
+    VPErrorTypeWrongVideoRequest,
     /** Empty interstitial. */
     VPErrorTypeEmptyInterstitial = VPErrorTypeNoFill,
 };
 
-OBJC_EXTERN NSString *const __nonnull kVPErrorDomain;
+OBJC_EXTERN NSString *const kVPErrorDomain;
+
+
+@interface VPError : NSError
+
+/**
+ * 에러 타입에 맞는 에러 객체를 생성하여 리턴한다.
+ */
++ (VPError *)errorWithType:(VPErrorType)errorType;
+
+/**
+ * VPErrorTypeServerError 타입의 에러를 생성하여 리턴한다.
+ */
++ (VPError *)errorWithServerMessage:(NSString *)serverMessage;
+
+@end
+
+NS_ASSUME_NONNULL_END

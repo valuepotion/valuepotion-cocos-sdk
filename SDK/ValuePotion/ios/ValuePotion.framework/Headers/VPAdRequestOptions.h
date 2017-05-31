@@ -12,18 +12,20 @@
 @class VPAdDimension;
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 @interface VPAdRequestOptions : NSObject
 
 /**
  * The placement for an ad
  */
-@property (nonatomic, copy, readonly, nonnull) NSString *placement;
+@property (nonatomic, copy, readonly) NSString *placement;
 
 /**
  * The dimension for an ad
  */
-@property (nonatomic, strong, readonly, nonnull) VPAdDimension *dimension;
+@property (nonatomic, strong, readonly) VPAdDimension *dimension;
 
 /**
  * The number of requesting items at same time. Default is 1.
@@ -46,10 +48,12 @@
  */
 @property (nonatomic) BOOL startRenderingAtCallback;
 
-+ (nonnull instancetype)optionsWithPlacement:(nonnull NSString *)placement dimension:(nonnull VPAdDimension *)dimension;
++ (instancetype)optionsWithPlacement:(NSString *)placement dimension:(VPAdDimension *)dimension;
 
-- (nonnull instancetype)initWithPlacement:(nonnull NSString *)placement dimension:(nonnull VPAdDimension *)dimension;
+- (instancetype)initWithPlacement:(NSString *)placement dimension:(VPAdDimension *)dimension;
 
-- (nonnull instancetype)init __unavailable;
+- (instancetype)init __unavailable;
 
 @end
+
+NS_ASSUME_NONNULL_END

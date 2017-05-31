@@ -10,6 +10,9 @@
 #import <ValuePotion/ValuePotionDefines.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 typedef NS_ENUM(NSInteger, VPAdDimensionType) {
     /** The default dimension type */
     VPAdDimensionTypeDefault __deprecated_msg("use VPAdDimensionTypeInterstitial") VP_SWIFT_UNAVAILABLE("use .interstitial") VP_SWIFT_NAME(default),
@@ -54,49 +57,49 @@ typedef NS_ENUM(NSInteger, VPAdDimensionType) {
 /**
  * The dimension that has 320w x 50h
  */
-+ (nonnull instancetype)dimensionForBanner VP_SWIFT_NAME(banner());
++ (instancetype)dimensionForBanner VP_SWIFT_NAME(banner());
 
 /**
  * The dimension that has 320w x 100h
  */
-+ (nonnull instancetype)dimensionForLargeBanner VP_SWIFT_NAME(largeBanner());
++ (instancetype)dimensionForLargeBanner VP_SWIFT_NAME(largeBanner());
 
 /**
  * The dimension that has 300w x 250h
  */
-+ (nonnull instancetype)dimensionForMediumRectangle VP_SWIFT_NAME(mediumRectangle());
++ (instancetype)dimensionForMediumRectangle VP_SWIFT_NAME(mediumRectangle());
 
 /**
  * This dimension is for native banner. It is 728w x 90h currently.
  */
-+ (nonnull instancetype)dimensionForLeaderboard VP_SWIFT_NAME(leaderboard());
++ (instancetype)dimensionForLeaderboard VP_SWIFT_NAME(leaderboard());
 
 /**
  * This dimension is for interstitial ad. It is 320w x 480h currently.
  */
-+ (nonnull instancetype)dimensionForInterstitial VP_SWIFT_NAME(interstitial());
++ (instancetype)dimensionForInterstitial VP_SWIFT_NAME(interstitial());
 
 /**
  * This dimension is for native banner. It is 320w x 100h currently.
  */
-+ (nonnull instancetype)dimensionForNativeBanner VP_SWIFT_NAME(nativeBanner());
++ (instancetype)dimensionForNativeBanner VP_SWIFT_NAME(nativeBanner());
 
 /**
  * The dimension that has 320w x 480h
  */
-+ (nonnull instancetype)dimensionWith320x480 VP_SWIFT_NAME(fullscreen());
++ (instancetype)dimensionWith320x480 VP_SWIFT_NAME(fullscreen());
 
 /**
  * A dimension that has any width and height.
  * @param width The banner width
  * @param height The banner height
  */
-+ (nonnull instancetype)dimensionWithWidth:(NSInteger)width height:(NSInteger)height;
++ (instancetype)dimensionWithWidth:(NSInteger)width height:(NSInteger)height;
 
 /**
  * Create dimension with VPAdDimensionType.
  */
-+ (nonnull instancetype)dimensionWithType:(VPAdDimensionType)type;
++ (instancetype)dimensionWithType:(VPAdDimensionType)type;
 
 /**
  * @return a CGSize structure with placementWidth and placementHeight
@@ -104,7 +107,7 @@ typedef NS_ENUM(NSInteger, VPAdDimensionType) {
 - (CGSize)getSize;
 
 
-- (nonnull instancetype)init __unavailable;
+- (instancetype)init __unavailable;
 
 
 @end
@@ -114,27 +117,29 @@ typedef NS_ENUM(NSInteger, VPAdDimensionType) {
 /**
  * The default dimension. This dimension is for interstitial ad. It is 320w x 480h currently.
  */
-+ (nonnull instancetype)defaultDimension __deprecated_msg("use +[VPAdDimension dimensionWith320x480]");
++ (instancetype)defaultDimension __deprecated_msg("use +[VPAdDimension dimensionWith320x480]");
 
 /**
  * The dimension that has 320w x 50h
  */
-+ (nonnull instancetype)dimensionWith320x50 __deprecated_msg("use +[VPAdDimension dimensionForBanner]");
++ (instancetype)dimensionWith320x50 __deprecated_msg("use +[VPAdDimension dimensionForBanner]");
 
 /**
  * The dimension that has 320w x 100h
  */
-+ (nonnull instancetype)dimensionWith320x100 __deprecated_msg("use +[VPAdDimension dimensionForLargeBanner]");
++ (instancetype)dimensionWith320x100 __deprecated_msg("use +[VPAdDimension dimensionForLargeBanner]");
 
 /**
  * The dimension that has 300w x 250h
  */
-+ (nonnull instancetype)dimensionWith300x250 __deprecated_msg("use +[VPAdDimension dimensionWithMediumRectangle]");
++ (instancetype)dimensionWith300x250 __deprecated_msg("use +[VPAdDimension dimensionWithMediumRectangle]");
 
 /**
  * The dimension that has 320w x 300h
  */
-+ (nonnull instancetype)dimensionWith320x300 __deprecated_msg("use +[VPAdDimension dimensionWithMediumRectangle]");
++ (instancetype)dimensionWith320x300 __deprecated_msg("use +[VPAdDimension dimensionWithMediumRectangle]");
 
 @end
 
+
+NS_ASSUME_NONNULL_END
