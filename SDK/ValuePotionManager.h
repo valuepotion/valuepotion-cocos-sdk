@@ -1,6 +1,6 @@
 //
 //  ValuePotionManager.h
-//  Version 1.0.11
+//  Version 1.0.12
 //
 //  Copyright (c) 2013 ValuePotion. All rights reserved.
 //
@@ -12,7 +12,7 @@
 #include <vector>
 
 static const char *SDK_TYPE = "Cocos";
-static const char *SDK_VERSION = "1.0.11";
+static const char *SDK_VERSION = "1.0.12";
 
 struct Reward
 {
